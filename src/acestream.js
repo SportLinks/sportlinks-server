@@ -41,7 +41,7 @@ export function getShowsAcestream() {
         showsAcestream.push(show);
       }
     });
-    //var shows = [];
+    var shows = [];
     return Promise.all(promises)
       .then((values) => {
         console.log('b')

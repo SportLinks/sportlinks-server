@@ -38,6 +38,7 @@ export function getShowsSopcast() {
         showsSopCast.push(show);
       }
     });
+    var shows = [];
     return Promise.all(promises).then((values) => {
       shows.forEach((show, index, array) => {
         var streamings = [];
