@@ -22,12 +22,12 @@ function getApplicationUrl(url, protocol) {
   });
 }
 
-export default function addStreamUrls(shows, type, protocol, uriAplicationName) {
+export default function addStreamUrls(shows, application) {
   var promises = [];
   shows.forEach((show, index) => {
     show.streamings.forEach((streaming, index) => {
-      if (streaming.type.indexOf(type) !== -1) {
-        promises.push(getApplicationUrl(streaming.url, protocol));
+      if (streaming.type.indexOf(application.type) !== -1) {
+        promises.push(getApplicationUrl(streaming.url, application.protocol));
       }
     });
   });
@@ -38,7 +38,7 @@ export default function addStreamUrls(shows, type, protocol, uriAplicationName) 
         show.streamings.forEach((streaming, index, array) => {
           values.forEach((value) => {
             if (streaming.url === value.url) {
-              streaming[uriAplicationName] = value.urlApplication;
+              streaming[application.uriName] = value.urlApplication;
             }
           });
         });

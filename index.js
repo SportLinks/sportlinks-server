@@ -1,5 +1,5 @@
 import express from 'express';
-import {getShows} from './src/shows';
+import {getShows, filterShows} from './src/shows';
 
 var app = express();
 
@@ -31,12 +31,12 @@ getShows().then((shows) => {
 });
 
 app.get('/shows', function(req, res) {
-  if (req.query.cache !== 'false') {
-    res.json(cachedShows);
+if (req.query.cache !== 'false') {
+    res.json(filterShows(cachedShows, req.query.type));
   } else {
     getShows().then((shows) => {
       cachedShows = shows;
-      res.json(shows);
+      res.json(filterShows(shows,req.query.type));
     });
   }
 });

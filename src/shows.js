@@ -6,6 +6,19 @@ import addStreamUrls from './streams';
 
 iconv.skipDecodeWarning = true;
 
+const types = {
+  acestream: {
+    type: 'Acestream',
+    protocol: 'acestream://',
+    uriName: 'urlAcestream'
+  },
+  sopcast: {
+    type: 'Sopcast',
+    protocol: 'sop://',
+    uriName: 'urlSopcast'
+  }
+};
+
 let shows = [];
 
 const options = {
@@ -90,9 +103,26 @@ export function getShows() {
       }
     });
 
-    return addStreamUrls(shows, 'Sopcast', 'sop://', 'urlSopcast')
+    return addStreamUrls(shows, types.sopcast)
       .then((shows) => {
-        return addStreamUrls(shows, 'Acestream', 'acestream://', 'urlAcestream');
+        return addStreamUrls(shows, types.acestream);
       });
   });
+}
+
+export function filterShows(shows, type) {
+  let filteredShows = [];
+  shows.forEach((show, index, array) => {
+    let filteredStreamings = [];
+    show.streamings.forEach((streaming, index, array) => {
+      if (streaming[types[type].uriName] !== undefined && streaming[types[type].uriName] !== '') {
+        filteredStreamings.push(streaming);
+      }
+    });
+    if (filteredStreamings.length > 0) {
+      show.streamings = filteredStreamings;
+      filteredShows.push(show);
+    }
+  });
+  return filteredShows;
 }
