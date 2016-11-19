@@ -111,6 +111,7 @@ export function getShows() {
 }
 
 export function filterShows(shows, type) {
+  if (type === undefined) return shows;
   let filteredShows = [];
   shows.forEach((show, index, array) => {
     let filteredStreamings = [];
