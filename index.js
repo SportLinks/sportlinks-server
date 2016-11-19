@@ -28,7 +28,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/shows', function(req, res) {
-  getShows().then((shows) => {
+  getShows(req.query.cache).then((shows) => {
     res.json(shows);
   });
 });

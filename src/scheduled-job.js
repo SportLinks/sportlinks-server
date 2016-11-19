@@ -1,6 +1,6 @@
 import rp from 'request-promise';
 
-const url = 'https://sportlinks.herokuapp.com/shows/';
+const url = 'https://sportlinks.herokuapp.com/shows?cache=false';
 
 rp(url)
   .then(($) => {

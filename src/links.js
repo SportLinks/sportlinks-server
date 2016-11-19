@@ -5,6 +5,8 @@ import {removeLiterals} from './utils';
 
 iconv.skipDecodeWarning = true;
 
+let shows = [];
+
 const options = {
     uri: 'http://www.rinconrojadirecta.com/rd/rd.php',
     encoding: null,
@@ -55,9 +57,13 @@ function getDescription(elem, $) {
   return description;
 }
 
-export function getShows() {
+export function getShows(cache) {
+  if (cache !== 'false') {
+    return new Promise((fullfill, reject) => {
+      fullfill(shows);
+    });
+  }
   return getMainPage().then(($) => {
-    var shows = [];
     const sizeShows = $('.menutitle').length;
     $('.menutitle').each((i, elem) => {
       if (i<sizeShows-1) {
