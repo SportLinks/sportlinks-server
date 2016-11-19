@@ -26,6 +26,9 @@ app.use(function (req, res, next) {
 });
 
 let cachedShows = [];
+getShows().then((shows) => {
+  cachedShows = shows;
+});
 
 app.get('/shows', function(req, res) {
   if (req.query.cache !== 'false') {
