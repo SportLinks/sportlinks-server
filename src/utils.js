@@ -1,4 +1,4 @@
-export function removeLiterals(description, literals, language) {
+export default function removeLiterals(description, literals, language) {
   var result = description;
   literals.forEach((elem, i) => {
     if (i<literals.length && elem.language === language) {

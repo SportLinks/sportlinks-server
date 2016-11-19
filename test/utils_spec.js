@@ -1,6 +1,6 @@
 import {expect, assert} from 'chai';
 import {chai} from 'chai';
-import {removeLiterals} from '../src/utils';
+import removeLiterals from '../src/utils';
 
 describe('utils', () => {
 

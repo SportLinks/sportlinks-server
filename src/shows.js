@@ -1,7 +1,8 @@
 import rp from 'request-promise';
 import cheerio from 'cheerio';
 import iconv from 'iconv-lite';
-import {removeLiterals} from './utils';
+import removeLiterals from './utils';
+import addStreamUrls from './streams';
 
 iconv.skipDecodeWarning = true;
 
@@ -57,12 +58,8 @@ function getDescription(elem, $) {
   return description;
 }
 
-export function getShows(cache) {
-  if (cache !== 'false') {
-    return new Promise((fullfill, reject) => {
-      fullfill(shows);
-    });
-  }
+export function getShows() {
+  let shows = [];
   return getMainPage().then(($) => {
     const sizeShows = $('.menutitle').length;
     $('.menutitle').each((i, elem) => {
@@ -92,6 +89,10 @@ export function getShows(cache) {
         shows.push(show);
       }
     });
-    return shows;
+
+    return addStreamUrls(shows, 'Sopcast', 'sop://', 'urlSopcast')
+      .then((shows) => {
+        return addStreamUrls(shows, 'Acestream', 'acestream://', 'urlAcestream');
+      });
   });
 }

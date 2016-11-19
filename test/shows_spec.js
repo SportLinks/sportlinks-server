@@ -4,11 +4,11 @@ import mockery from 'mockery';
 import cheerio from 'cheerio';
 import fs from 'fs';
 import bluebird from 'bluebird';
-import {getMainPage, getShows} from '../src/links';
+import {getMainPage, getShows} from '../src/shows';
 
 describe('parse http://www.rinconrojadirecta.com web', () => {
 
-  var mockPage;
+  var mockShows;
 
   before(function (done) {
     mockery.enable({
@@ -17,16 +17,16 @@ describe('parse http://www.rinconrojadirecta.com web', () => {
         useCleanCache: true
     });
     mockery.registerMock('request-promise', function (options) {
-      if (typeof options == 'object') {
-        if (options.uri === 'http://www.rinconrojadirecta.com/rd/rd.php') {
-          var response = fs.readFileSync(__dirname + '/data/' + 'links.html', 'utf8');
-          return bluebird.resolve(options.transform(response.trim()));
-        }
+      let uri = (typeof options == 'object') ? uri = options.uri : uri = options;
+      const response = fs.readFileSync(__dirname + '/data/' + 'links.html', 'utf8');
+
+      if (uri === 'http://www.rinconrojadirecta.com/rd/rd.php') {
+        return bluebird.resolve(options.transform(response.trim()));
       } else {
-        return rp(options);
+        return bluebird.resolve(response.trim());
       }
     });
-    mockPage = require('../src/links');
+    mockShows = require('../src/shows');
     done();
   });
 
@@ -37,14 +37,15 @@ describe('parse http://www.rinconrojadirecta.com web', () => {
       });
   });
 
-  it('get list shows', () => {
+  xit('get list shows', (done) => {
     return getShows().then((shows) => {
       expect(shows.length).to.be.at.least(10);
+      done();
     })
   });
 
   it('get mock list shows', () => {
-    return mockPage.getShows().then((shows) => {
+    return mockShows.getShows().then((shows) => {
       expect(shows[1].startDate).to.be.eq('2016-11-11T20:45');
       expect(shows[1].description).to.be.eq('World Cup Qualification, Simulcast');
       expect(shows[1].streamings.length).to.be.eq(3);
