@@ -6,18 +6,18 @@ import addStreamUrls from './streams';
 
 iconv.skipDecodeWarning = true;
 
-const types = {
-  acestream: {
+const types = [
+  {
     type: 'Acestream',
     protocol: 'acestream://',
     uriName: 'urlAcestream'
   },
-  sopcast: {
+  {
     type: 'Sopcast',
     protocol: 'sop://',
     uriName: 'urlSopcast'
   }
-};
+];
 
 let shows = [];
 
@@ -103,27 +103,37 @@ export function getShows() {
       }
     });
 
-    return addStreamUrls(shows, types.sopcast)
+    return addStreamUrls(shows, types[0])
       .then((shows) => {
-        return addStreamUrls(shows, types.acestream);
+        return addStreamUrls(shows, types[1]);
       });
   });
 }
 
-export function filterShows(shows, type) {
-  if (type === undefined) return shows;
+export function filterShows(shows, query) {
   let filteredShows = [];
-  shows.forEach((show, index, array) => {
-    let filteredStreamings = [];
-    show.streamings.forEach((streaming, index, array) => {
-      if (streaming[types[type].uriName] !== undefined && streaming[types[type].uriName] !== '') {
-        filteredStreamings.push(streaming);
+  if (query === undefined || query === '') {
+    return shows;
+  }
+  else if (query === 'p2p') {
+    shows.forEach((show, index, array) => {
+      let filteredStreamings = [];
+      show.streamings.forEach((streaming, index, array) => {
+        let found = false;
+        types.forEach((type, index, array) => {
+          if (streaming[type.uriName] !== undefined && streaming[type.uriName] !== '') {
+            found = true;
+          }
+        });
+        if (found) {
+          filteredStreamings.push(streaming);
+        }
+      });
+      if (filteredStreamings.length > 0) {
+        show.streamings = filteredStreamings;
+        filteredShows.push(show);
       }
     });
-    if (filteredStreamings.length > 0) {
-      show.streamings = filteredStreamings;
-      filteredShows.push(show);
-    }
-  });
+  }
   return filteredShows;
 }
