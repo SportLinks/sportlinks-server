@@ -25,9 +25,12 @@ app.use(function (req, res, next) {
     next();
 });
 
-let cachedShows = [];
+let cachedShows = {};
 getShows().then((shows) => {
-  cachedShows = shows;
+  cachedShows = {
+    date: Date.now(),
+    shows: shows
+  };
 });
 
 app.get('/shows', function(req, res) {
@@ -35,8 +38,11 @@ if (req.query.cache !== 'false') {
     res.json(filterShows(cachedShows, req.query.type));
   } else {
     getShows().then((shows) => {
-      cachedShows = shows;
-      res.json(filterShows(shows,req.query.type));
+      cachedShows = {
+        date: Date.now(),
+        shows: shows
+      };
+      res.json(filterShows(cachedShows, req.query.type));
     });
   }
 });

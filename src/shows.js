@@ -1,7 +1,7 @@
 import rp from 'request-promise';
 import cheerio from 'cheerio';
 import iconv from 'iconv-lite';
-import removeLiterals from './utils';
+import {removeLiterals, removeText} from './utils';
 import addStreamUrls from './streams';
 
 iconv.skipDecodeWarning = true;
@@ -43,6 +43,34 @@ export function getMainPage() {
   });
 }
 
+function getCategory(elem, $) {
+  let category = $(elem).text()
+  category = removeText(category, $(elem).children('span').first().text())
+  category = removeText(category, $(elem).children('b').text())
+  category = category.trim()
+  if (category.charAt(category.length-1) === ':') {
+    category = category.substring(0, category.length-1)
+  }
+  let literals = []
+  let spans = $(elem).children('span')
+  if (spans !== undefined) {
+    spans.each((i, elem) => {
+      let text = $(elem).text();
+      let language = 'es';
+      if (text !== undefined && text !== '' && $(elem).attr('class') !== 't') {
+        if ($(elem).attr('class') === 'en') {
+          language = 'en';
+        }
+        literals.push({text: text, language: language});
+      }
+    })
+  }
+  if (literals.length > 0) {
+    category = removeLiterals(category, literals, 'en');
+  }
+  return category;
+}
+
 function getDescription(elem, $) {
   var description = elem.text();
   var literals = [];
@@ -79,10 +107,7 @@ export function getShows() {
       if (i<sizeShows-1) {
         var show = {};
         show.startDate = $(elem).children('meta').attr('content');
-        show.category_es = $(elem).children('span').eq(1).text();
-        show.category_en = $(elem).children('span').eq(2).text();
-        show.country_es = $(elem).children('span').eq(3).text();
-        show.country_en = $(elem).children('span').eq(4).text();
+        show.category = getCategory(elem, $);
         show.description = getDescription($(elem).children('b').children('span'), $);
         show.streamings = [];
 
@@ -116,7 +141,7 @@ export function filterShows(shows, query) {
     return shows;
   }
   else if (query === 'p2p') {
-    shows.forEach((show, index, array) => {
+    shows.shows.forEach((show, index, array) => {
       let filteredStreamings = [];
       show.streamings.forEach((streaming, index, array) => {
         let found = false;
@@ -135,5 +160,6 @@ export function filterShows(shows, query) {
       }
     });
   }
-  return filteredShows;
+  shows.shows = filteredShows;
+  return shows;
 }

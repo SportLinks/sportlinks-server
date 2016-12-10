@@ -5,7 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --recursive",
+    "test": "mocha --compilers js:babel-core/register --recursive --timeout 15000",
     "test:watch": "npm run test -- --watch",
     "start": "babel-node index.js"
   },

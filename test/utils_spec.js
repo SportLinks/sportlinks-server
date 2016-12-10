@@ -1,6 +1,6 @@
 import {expect, assert} from 'chai';
 import {chai} from 'chai';
-import removeLiterals from '../src/utils';
+import {removeLiterals, removeText} from '../src/utils';
 
 describe('utils', () => {
 
@@ -15,5 +15,11 @@ describe('utils', () => {
     expect(removeLiterals(description, literals, 'en') === 'Francia - Suecia').to.be.true;
     expect(removeLiterals(description, literals, 'es') === 'France - Sweden').to.be.true;
   });
+
+  it('remove text', () => {
+    const description = 'Hola mundo!'
+    expect(removeText(description, 'mundo') === 'Hola !').to.be.true
+    expect(removeText(description, 'adios') === 'Hola mundo!').to.be.true
+  })
 
 });

@@ -40,12 +40,14 @@ describe('parse http://www.rinconrojadirecta.com web', () => {
   xit('get list shows', (done) => {
     return getShows().then((shows) => {
       expect(shows.length).to.be.at.least(10);
-      done();
     })
   });
 
   it('get mock list shows', () => {
     return mockShows.getShows().then((shows) => {
+      shows.forEach((show,index, array) => {
+      })
+
       expect(shows[1].startDate).to.be.eq('2016-11-11T20:45');
       expect(shows[1].description).to.be.eq('World Cup Qualification, Simulcast');
       expect(shows[1].streamings.length).to.be.eq(3);
