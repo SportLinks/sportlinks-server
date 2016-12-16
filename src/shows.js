@@ -160,6 +160,5 @@ export function filterShows(shows, query) {
       }
     });
   }
-  shows.shows = filteredShows;
-  return shows;
+  return filteredShows;
 }

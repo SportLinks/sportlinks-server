@@ -40,9 +40,9 @@ if (req.query.cache !== 'false') {
     getShows().then((shows) => {
       cachedShows = {
         date: Date.now(),
-        shows: shows
+        shows: filterShows(shows, req.query.type)
       };
-      res.json(filterShows(cachedShows, req.query.type));
+      res.json(cachedShows);
     });
   }
 });
