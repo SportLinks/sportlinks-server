@@ -26,6 +26,7 @@ app.use(function (req, res, next) {
 });
 
 let cachedShows = {};
+
 getShows().then((shows) => {
   cachedShows = {
     date: Date.now(),
@@ -33,18 +34,22 @@ getShows().then((shows) => {
   };
 });
 
-app.get('/shows', function(req, res) {
+function getFiltredShows(shows, type) {
   let result = Object.assign({}, cachedShows);
+  result.shows = filterShows(shows.shows, type)
+  return result
+}
+
+app.get('/shows', function(req, res) {
   if (req.query.cache !== 'false') {
-    result.shows = filterShows(result.shows, req.query.type)
-    res.json(result);
+    res.json(getFiltredShows(cachedShows, req.query.type));
   } else {
     getShows().then((shows) => {
-      result = {
+      cachedShows = {
         date: Date.now(),
-        shows: filterShows(shows, req.query.type)
+        shows: shows
       };
-      res.json(result);
+      res.json(getFiltredShows(cachedShows, req.query.type));
     });
   }
 });
