@@ -141,7 +141,7 @@ export function filterShows(shows, query) {
     return shows;
   }
   else if (query === 'p2p') {
-    shows.shows.forEach((show, index, array) => {
+    shows.forEach((show, index, array) => {
       let filteredStreamings = [];
       show.streamings.forEach((streaming, index, array) => {
         let found = false;

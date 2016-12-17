@@ -34,15 +34,17 @@ getShows().then((shows) => {
 });
 
 app.get('/shows', function(req, res) {
-if (req.query.cache !== 'false') {
-    res.json(filterShows(cachedShows, req.query.type));
+  let result = Object.assign({}, cachedShows);
+  if (req.query.cache !== 'false') {
+    result.shows = filterShows(result.shows, req.query.type)
+    res.json(result);
   } else {
     getShows().then((shows) => {
-      cachedShows = {
+      result = {
         date: Date.now(),
         shows: filterShows(shows, req.query.type)
       };
-      res.json(cachedShows);
+      res.json(result);
     });
   }
 });
