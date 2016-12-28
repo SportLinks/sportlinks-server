@@ -1,5 +1,6 @@
 import express from 'express';
 import {getShows, filterShows} from './src/shows';
+import {getShows as getShowsAv} from './src/shows-av'
 
 var app = express();
 
@@ -52,6 +53,12 @@ app.get('/shows', function(req, res) {
       res.json(getFiltredShows(cachedShows, req.query.type));
     });
   }
+});
+
+app.get('/shows-av', function(req, res) {
+  getShowsAv().then((shows) => {
+    res.json(shows);
+  });
 });
 
 app.listen(port);

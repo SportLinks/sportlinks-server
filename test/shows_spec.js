@@ -18,7 +18,7 @@ describe('parse http://www.rinconrojadirecta.com web', () => {
     });
     mockery.registerMock('request-promise', function (options) {
       let uri = (typeof options == 'object') ? uri = options.uri : uri = options;
-      const response = fs.readFileSync(__dirname + '/data/' + 'links.html', 'utf8');
+      const response = fs.readFileSync(__dirname + '/data/' + 'links-rd.html', 'utf8');
 
       if (uri === 'http://www.rinconrojadirecta.com/rd/rd.php') {
         return bluebird.resolve(options.transform(response.trim()));
