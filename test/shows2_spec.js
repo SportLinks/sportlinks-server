@@ -4,9 +4,9 @@ import mockery from 'mockery';
 import cheerio from 'cheerio';
 import fs from 'fs';
 import bluebird from 'bluebird';
-import {getMainPage, getShows} from '../src/shows-av';
+import {getMainPage, getShows} from '../src/shows2';
 
-describe('parse http://arenavision.in/schedule web', () => {
+describe('parse links2 web', () => {
 
   var mockShows;
 
@@ -18,29 +18,22 @@ describe('parse http://arenavision.in/schedule web', () => {
     });
     mockery.registerMock('request-promise', function (options) {
       let uri = (typeof options == 'object') ? uri = options.uri : uri = options;
-      const response = fs.readFileSync(__dirname + '/data/' + 'links-av.html', 'utf8');
+      const response = fs.readFileSync(__dirname + '/data/' + 'links2.html', 'utf8');
 
-      if (uri === 'http://arenavision.in/schedule') {
+      if (uri === 'http://links2.fake') {
         return bluebird.resolve(options.transform(response.trim()));
       } else {
         return bluebird.resolve(response.trim());
       }
     });
-    mockShows = require('../src/shows-av');
+    mockShows = require('../src/shows2');
     done();
-  });
-
-  it('get main page', () => {
-    return getMainPage()
-      .then(($) => {
-        expect($.html().indexOf("EVENTS GUIDE | ArenaVision | We Love Sports") !== -1).to.be.true;
-      });
   });
 
   it('get mock main page', () => {
     return mockShows.getMainPage()
       .then(($) => {
-        expect($.html().indexOf("EVENTS GUIDE | ArenaVision | We Love Sports") !== -1).to.be.true;
+        expect($.html().indexOf("LINKS2") !== -1).to.be.true;
       });
   });
 

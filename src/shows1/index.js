@@ -22,7 +22,7 @@ const types = [
 let shows = [];
 
 const options = {
-    uri: 'http://www.rinconrojadirecta.com/rd/rd.php',
+    uri: process.env.URL_LINKS1 || 'http://links1.fake',
     encoding: null,
     transform: function (body) {
         var bodyWithCorrectEncoding = iconv.decode(body, 'iso-8859-1');

@@ -1,7 +1,7 @@
 {
-  "name": "sportlinks-server",
+  "name": "sportslinks-server",
   "version": "0.0.1",
-  "description": "Sport Links server",
+  "description": "Sports Links server",
   "private": true,
   "main": "index.js",
   "scripts": {

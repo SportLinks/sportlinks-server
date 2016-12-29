@@ -1,6 +1,6 @@
 import express from 'express';
-import {getShows, filterShows} from './src/shows';
-import {getShows as getShowsAv} from './src/shows-av'
+import {getShows, filterShows} from './src/shows1';
+import {getShows as getShows2} from './src/shows2'
 
 var app = express();
 
@@ -55,8 +55,8 @@ app.get('/shows', function(req, res) {
   }
 });
 
-app.get('/shows-av', function(req, res) {
-  getShowsAv().then((shows) => {
+app.get('/shows2', function(req, res) {
+  getShows2().then((shows) => {
     res.json(shows);
   });
 });

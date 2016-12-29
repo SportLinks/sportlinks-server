@@ -4,9 +4,9 @@ import mockery from 'mockery';
 import cheerio from 'cheerio';
 import fs from 'fs';
 import bluebird from 'bluebird';
-import {getMainPage, getShows} from '../src/shows';
+import {getMainPage, getShows} from '../src/shows1';
 
-describe('parse http://www.rinconrojadirecta.com web', () => {
+describe('parse links 1 web', () => {
 
   var mockShows;
 
@@ -18,29 +18,23 @@ describe('parse http://www.rinconrojadirecta.com web', () => {
     });
     mockery.registerMock('request-promise', function (options) {
       let uri = (typeof options == 'object') ? uri = options.uri : uri = options;
-      const response = fs.readFileSync(__dirname + '/data/' + 'links-rd.html', 'utf8');
+      const response = fs.readFileSync(__dirname + '/data/' + 'links1.html', 'utf8');
 
-      if (uri === 'http://www.rinconrojadirecta.com/rd/rd.php') {
+      if (uri === 'http://links1.fake') {
         return bluebird.resolve(options.transform(response.trim()));
       } else {
         return bluebird.resolve(response.trim());
       }
     });
-    mockShows = require('../src/shows');
+    mockShows = require('../src/shows1');
     done();
   });
 
-  it('get main page', () => {
-    return getMainPage()
+  it('get mock main page', () => {
+    return mockShows.getMainPage()
       .then(($) => {
-        expect($.html().indexOf("ROJADIRECTA") !== -1).to.be.true;
+        expect($.html().indexOf("LINKS1") !== -1).to.be.true;
       });
-  });
-
-  xit('get list shows', (done) => {
-    return getShows().then((shows) => {
-      expect(shows.length).to.be.at.least(10);
-    })
   });
 
   it('get mock list shows', () => {

@@ -1,15 +1,13 @@
 import rp from 'request-promise';
 import cheerio from 'cheerio';
 import iconv from 'iconv-lite';
-import {removeLiterals, removeText} from './utils';
-import addStreamUrls from './streams';
 
 iconv.skipDecodeWarning = true;
 
 let shows = [];
 
 const options = {
-    uri: 'http://arenavision.in/schedule',
+    uri: process.env.URL_LINKS2 || 'http://links2.fake',
     encoding: null,
     transform: function (body) {
         var bodyWithCorrectEncoding = iconv.decode(body, 'iso-8859-1');
