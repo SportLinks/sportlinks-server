@@ -1,4 +1,5 @@
 import rp from 'request-promise';
+import {getStreamingUrl} from '../utils'
 
 function getApplicationUrl(url, protocol) {
   return new Promise((fullfill, reject) => {
@@ -8,12 +9,7 @@ function getApplicationUrl(url, protocol) {
     };
     rp(options)
       .then((html) => {
-        var urlAcestream = '';
-        var ini = html.indexOf(protocol);
-        var fin = html.indexOf('"', ini);
-        if (ini !== -1) {
-          var urlApplication = html.substring(ini, fin);
-        }
+        let urlApplication = getStreamingUrl(html, protocol)
         fullfill({'url': url, 'urlApplication': urlApplication});
       })
       .catch((error) => {

@@ -1,7 +1,7 @@
 import rp from 'request-promise';
 import cheerio from 'cheerio';
 import iconv from 'iconv-lite';
-import {removeLiterals, removeText} from './utils';
+import {removeLiterals, removeText} from '../utils';
 import addStreamUrls from './streams';
 
 iconv.skipDecodeWarning = true;
