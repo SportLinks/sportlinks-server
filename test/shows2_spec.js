@@ -37,7 +37,7 @@ describe('parse links2 web', () => {
       expect(shows[0].hour).to.be.eq('01:00 CET');
       expect(shows[0].sport).to.be.eq('BASKETBALL');
       expect(shows[0].competition).to.be.eq('USA NBA');
-      expect(shows[0].event).to.be.eq('WASHINGTON WIZARDS-INDIANA PACERS');
+      expect(shows[0].event).to.be.eq('Washington Wizards - Indiana Pacers');
       //expect(shows[0].channels).to.be.eq('20 [ENG]');
       expect(shows.length).to.be.eq(84);
     })

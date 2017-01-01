@@ -61,7 +61,7 @@ function upperCase(str) {
 }
 
 export function toTitleCase(str) {
-    str.replace('-', ' - ')
+    str = str.replace('-', ' - ')
     var firstLetterRx = /(^|\s)[a-z]/g;
     return str.replace(firstLetterRx, upperCase);
 }

@@ -37,7 +37,7 @@ describe('utils', () => {
   })
 
   it('does string to title case', () => {
-    expect(toTitleCase("help i'm sick")).to.be.eq("Help I'm Sick")
+    expect(toTitleCase("help i'm very-sick")).to.be.eq("Help I'm Very - Sick")
   })
 
 });
