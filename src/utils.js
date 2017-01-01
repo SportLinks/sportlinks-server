@@ -55,3 +55,12 @@ export function getRightNumber(data, index) {
   }
   return Number(number);
 }
+
+function upperCase(str) {
+    return str.toUpperCase();
+}
+
+export function toTitleCase(str) {
+    var firstLetterRx = /(^|\s)[a-z]/g;
+    return str.replace(firstLetterRx, upperCase);
+}

@@ -1,7 +1,7 @@
 import rp from 'request-promise';
 import cheerio from 'cheerio';
 import iconv from 'iconv-lite';
-import {getStreamingUrl, getLeftNumber, getRightNumber} from '../utils'
+import {getStreamingUrl, getLeftNumber, getRightNumber, toTitleCase} from '../utils'
 
 iconv.skipDecodeWarning = true;
 
@@ -136,7 +136,7 @@ export function getShows() {
           hour: fields.eq(1).text(),
           sport: cleanString(fields.eq(2).text()),
           competition: cleanString(fields.eq(3).text()),
-          event: cleanString(fields.eq(4).text()),
+          event: toTitleCase(cleanString(fields.eq(4).text()).toLowerCase()),
           channels: getChannels(cleanString(fields.eq(5).text()), streamingLinks),
         }
         shows.push(show)

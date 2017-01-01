@@ -1,6 +1,6 @@
 import {expect, assert} from 'chai';
 import {chai} from 'chai';
-import {removeLiterals, removeText, getLeftNumber, getRightNumber} from '../src/utils';
+import {removeLiterals, removeText, getLeftNumber, getRightNumber, toTitleCase} from '../src/utils';
 
 describe('utils', () => {
 
@@ -34,6 +34,10 @@ describe('utils', () => {
     expect(getRightNumber('3-40 [SPA] 26-27 [ENG]', 1)).to.be.eq(40);
     expect(getRightNumber('3-4 [SPA] 26-27 [ENG]', 12)).to.be.eq(27);
     expect(getRightNumber('3-4 [SPA] 26-27h [ENG]', 12)).to.be.eq(27);
+  })
+
+  it('does string to title case', () => {
+    expect(toTitleCase("help i'm sick")).to.be.eq("Help I'm Sick")
   })
 
 });
