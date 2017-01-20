@@ -7,6 +7,11 @@ iconv.skipDecodeWarning = true;
 
 const options = {
     uri: (process.env.URL_LINKS2 || 'http://links2.fake') + '/schedule',
+    headers: {
+        'Cookie': 'beget=begetok',
+        'Referer': 'http://arenavision.in/schedule',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2883.95 Mobile Safari/537.36'
+    },
     encoding: null,
     transform: function (body) {
         var bodyWithCorrectEncoding = iconv.decode(body, 'iso-8859-1');
@@ -46,6 +51,11 @@ function getStremingLinks() {
   for (var i=1; i<=30; i++) {
     let options = {
       uri: process.env.URL_LINKS2,
+      headers: {
+          'Cookie': 'beget=begetok',
+          'Referer': 'http://arenavision.in/schedule',
+          'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2883.95 Mobile Safari/537.36'
+      },
       timeout: 10000
     };
     options.uri = options.uri + '/av' + i
@@ -74,26 +84,6 @@ function getStremingLinks() {
     .catch((errors) => {
       console.log(errors);
     });
-}
-function getChannelsXXX(data, streamingLinks) {
-  let channels = [];
-  let index = data.indexOf('-');
-  while (index !== -1) {
-    let ini = getLeftNumber(data, index);
-    let fin = getRightNumber(data, index);
-    let index2 = data.indexOf('[', index);
-    let index3 = data.indexOf(']', index);
-    let language = data.substring(index2 + 1, index3);
-    for (let i=ini; i<=fin; i++) {
-      channels.push({
-        link: i,
-        url: streamingLinks[i-1],
-        language: language,
-      })
-    }
-    index = data.indexOf('-', index + 1);
-  }
-  return channels;
 }
 
 function getChannels(data, streamingLinks) {
