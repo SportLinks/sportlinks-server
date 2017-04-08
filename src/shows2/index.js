@@ -5,11 +5,12 @@ import {getStreamingUrl, getLeftNumber, getRightNumber, toTitleCase} from '../ut
 
 iconv.skipDecodeWarning = true;
 
+const uri = (process.env.URL_LINKS2 || 'http://links2.fake') + '/schedule-'
 const options = {
-    uri: (process.env.URL_LINKS2 || 'http://links2.fake') + '/schedule',
+    uri: uri,
     headers: {
         'Cookie': 'beget=begetok',
-        'Referer': 'http://arenavision.in/schedule',
+        'Referer': uri,
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2883.95 Mobile Safari/537.36'
     },
     encoding: null,
