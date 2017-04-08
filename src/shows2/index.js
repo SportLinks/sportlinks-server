@@ -49,17 +49,52 @@ function getStremingLinks() {
 
   let promises = []
 
+  const channel = [
+    'av-1',
+    'av-2',
+    'av3',
+    'av4',
+    'av-5',
+    'av-6',
+    'av7',
+    'av8',
+    'av9',
+    'av10',
+    'av11',
+    'av12',
+    'av13',
+    'av14',
+    'av15',
+    'av16',
+    'av17',
+    'av18',
+    'av19',
+    'av20',
+    'av21',
+    'av22',
+    'av-23',
+    'av-24',
+    'av25',
+    'av26',
+    'av27',
+    'av28',
+    'av29',
+    'av30'
+  ]
+
+  let uri = process.env.URL_LINKS2
+
   for (var i=1; i<=30; i++) {
     let options = {
-      uri: process.env.URL_LINKS2,
+      uri: uri,
       headers: {
           'Cookie': 'beget=begetok',
-          'Referer': 'http://arenavision.in/schedule',
+          'Referer': uri + '/schedule',
           'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2883.95 Mobile Safari/537.36'
       },
       timeout: 10000
     };
-    options.uri = options.uri + '/av' + i
+    options.uri = options.uri + '/' + channel[i-1]
     let promiseLinkUrl = new Promise((fullfill, reject) => {
         let link = i;
         rp(options)
