@@ -5,7 +5,7 @@ import {getStreamingUrl, getLeftNumber, getRightNumber, toTitleCase} from '../ut
 
 iconv.skipDecodeWarning = true;
 
-const uri = (process.env.URL_LINKS2 || 'http://links2.fake') + '/schedule'
+const uri = (process.env.URL_LINKS2 || 'http://links2.fake') + '/schedule-'
 const options = {
     uri: uri,
     headers: {
@@ -49,39 +49,6 @@ function getStremingLinks() {
 
   let promises = []
 
-  const channel = [
-    'av-1',
-    'av-2',
-    'av3',
-    'av4',
-    'av-5',
-    'av-6',
-    'av7',
-    'av-8',
-    'av-9',
-    'av10',
-    'av11',
-    'av12',
-    'av13',
-    'av14',
-    'av15',
-    'av16',
-    'av17',
-    'av18',
-    'av19',
-    'av20',
-    'av21',
-    'av22',
-    'av-23',
-    'av-24',
-    'av25',
-    'av26',
-    'av27',
-    'av28',
-    'av29',
-    'av30'
-  ]
-
   let uri = process.env.URL_LINKS2
 
   for (var i=1; i<=30; i++) {
@@ -94,7 +61,7 @@ function getStremingLinks() {
       },
       timeout: 10000
     };
-    options.uri = options.uri + '/' + channel[i-1]
+    options.uri = options.uri + '/' + 'av' + i
     let promiseLinkUrl = new Promise((fullfill, reject) => {
         let link = i;
         rp(options)
