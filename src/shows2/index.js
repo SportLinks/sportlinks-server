@@ -51,7 +51,7 @@ function getStremingLinks() {
 
   let uri = process.env.URL_LINKS2
 
-  for (var i=1; i<=30; i++) {
+  for (var i=1; i<=31; i++) {
     let options = {
       uri: uri,
       headers: {
@@ -62,6 +62,7 @@ function getStremingLinks() {
       timeout: 10000
     };
     options.uri = options.uri + '/' + 'av' + i
+    console.log(options.uri)
     let promiseLinkUrl = new Promise((fullfill, reject) => {
         let link = i;
         rp(options)
