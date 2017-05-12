@@ -5,7 +5,7 @@ import {getStreamingUrl, getLeftNumber, getRightNumber, toTitleCase} from '../ut
 
 iconv.skipDecodeWarning = true;
 
-const uri = (process.env.URL_LINKS2 || 'http://links2.fake') + '/-schedule-'
+const uri = (process.env.URL_LINKS2 || 'http://links2.fake') + '/schedule-'
 const options = {
     uri: uri,
     headers: {
