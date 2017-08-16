@@ -61,7 +61,7 @@ function getStremingLinks() {
       },
       timeout: 10000
     };
-    options.uri = options.uri + '/' + 'av' + i
+    options.uri = options.uri + '/' + i
     console.log(options.uri)
     let promiseLinkUrl = new Promise((fullfill, reject) => {
         let link = i;
