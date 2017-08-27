@@ -61,7 +61,9 @@ function getStremingLinks() {
       },
       timeout: 10000
     };
-    options.uri = options.uri + '/' + i
+    let channel = i
+    if (i <= 9) channel = "0" + i
+    options.uri = options.uri + '/' + channel
     console.log(options.uri)
     let promiseLinkUrl = new Promise((fullfill, reject) => {
         let link = i;
