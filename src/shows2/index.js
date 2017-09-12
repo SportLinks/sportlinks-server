@@ -5,7 +5,7 @@ import {getStreamingUrl, getLeftNumber, getRightNumber, toTitleCase} from '../ut
 
 iconv.skipDecodeWarning = true;
 
-const uri = (process.env.URL_LINKS2 || 'http://links2.fake') + '/guide'
+const uri = (process.env.URL_LINKS2 || 'http://links2.fake') + '/iguide'
 console.log(uri)
 const options = {
     uri: uri,
