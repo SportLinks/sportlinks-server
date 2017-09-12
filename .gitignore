@@ -3,3 +3,5 @@ build
 coverage
 npm-debug.log
 run.sh
+.vscode
+.history

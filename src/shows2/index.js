@@ -6,7 +6,6 @@ import {getStreamingUrl, getLeftNumber, getRightNumber, toTitleCase} from '../ut
 iconv.skipDecodeWarning = true;
 
 const uri = (process.env.URL_LINKS2 || 'http://links2.fake') + '/iguide'
-console.log(uri)
 const options = {
     uri: uri,
     headers: {
@@ -50,10 +49,9 @@ function getStremingLinks() {
 
   let promises = []
 
-  let uri = process.env.URL_LINKS2
-  console.log(uri)
+  let uri = process.env.URL_LINKS2 || 'http://links2.fake'
   
-  for (var i=1; i<=31; i++) {
+  for (var i=1; i<=35; i++) {
     let options = {
       uri: uri,
       headers: {
@@ -66,7 +64,6 @@ function getStremingLinks() {
     let channel = i
     if (i <= 9) channel = "0" + i
     options.uri = options.uri + '/' + channel
-    console.log(options.uri)
     let promiseLinkUrl = new Promise((fullfill, reject) => {
         let link = i;
         rp(options)
