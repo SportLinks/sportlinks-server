@@ -1,6 +1,5 @@
 import express from 'express';
-import {getShows, filterShows} from './src/shows1';
-import {getShows as getShows2} from './src/shows2'
+import {getShows} from './src/shows2'
 
 var app = express();
 
@@ -26,37 +25,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-let cachedShows = {};
-
-getShows().then((shows) => {
-  cachedShows = {
-    date: Date.now(),
-    shows: shows
-  };
-});
-
-function getFiltredShows(shows, type) {
-  let result = Object.assign({}, cachedShows);
-  result.shows = filterShows(shows.shows, type)
-  return result
-}
-
-app.get('/shows', function(req, res) {
-  if (req.query.cache !== 'false') {
-    res.json(getFiltredShows(cachedShows, req.query.type));
-  } else {
-    getShows().then((shows) => {
-      cachedShows = {
-        date: Date.now(),
-        shows: shows
-      };
-      res.json(getFiltredShows(cachedShows, req.query.type));
-    });
-  }
-});
-
 app.get('/shows2', function(req, res) {
-  getShows2().then((shows) => {
+  getShows().then((shows) => {
     res.json(shows);
   });
 });
