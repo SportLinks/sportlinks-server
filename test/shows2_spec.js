@@ -34,13 +34,13 @@ describe('parse links2 web', () => {
   it('get mock list shows', () => {
     return mockShows.getShows().then((data) => {
       let shows = data.shows;
-      expect(shows[0].date).to.be.eq('12/09/2017');
-      expect(shows[0].hour).to.be.eq('14:00 CEST');
+      expect(shows[0].date).to.be.eq('30/09/2017');
+      expect(shows[0].hour).to.be.eq('13:00 CEST');
       expect(shows[0].sport).to.be.eq('SOCCER');
-      expect(shows[0].competition).to.be.eq('UEFA YOUTH LEAGUE');
-      expect(shows[0].event).to.be.eq('Benfica - Cska Moscow');
+      expect(shows[0].competition).to.be.eq('SPANISH LA LIGA');
+      expect(shows[0].event).to.be.eq('Deportivo - Getafe');
       expect(shows[0].channels.length).to.be.eq(2);
-      expect(shows.length).to.be.eq(160);
+      expect(shows.length).to.be.eq(86);
     })
   });
 

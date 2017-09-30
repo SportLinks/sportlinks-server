@@ -92,6 +92,7 @@ function getStremingLinks() {
 }
 
 function getChannels(data, streamingLinks) {
+  const numLinks = streamingLinks.length;
   let channels = [];
   let start = 0;
   let index = data.indexOf('[');
@@ -106,11 +107,13 @@ function getChannels(data, streamingLinks) {
       ini = fin = getLeftNumber(data, index-1)
     }
     for (let i=ini; i<=fin; i++) {
-      channels.push({
-        link: i,
-        url: streamingLinks[i-1].url,
-        language: language,
-      })
+      if (i <= numLinks) {
+        channels.push({
+          link: i,
+          url: streamingLinks[i-1].url,
+          language: language,
+        })
+      }
     }
     start = index;
     index = data.indexOf('[', index + 1);
